@@ -7,36 +7,34 @@ import {Card} from "./components-ui/Card/Card";
 import {ValueSetter} from "./components/ValueSetter/ValueSetter";
 
 function App() {
+
+  const minValueAsString = localStorage.getItem('minInputValue')
+  const initMinValue = minValueAsString && JSON.parse(minValueAsString)
+  console.log('initMinValue', initMinValue)
+
   let [counter, setCounter] = useState<number>(0);
 
   //создадим локальный стейт для минимального числа из инпута
   //сетаем его в ValueSetter в localstorage
-    const [minInputValue, setMinInputValue] = useState('0');
+    const [minInputValue, setMinInputValue] = useState<number>(initMinValue ? initMinValue : 0);
     console.log(minInputValue)
 
   //создадим локальный стейт для максимального числа из инпута
   //сетаем его в ValueSetter в localstorage
-    const [maxInputValue, setMaxInputValue] = useState('0');
+    const [maxInputValue, setMaxInputValue] = useState<number>(0);
     console.log(maxInputValue)
+    const [disabled, setDisabled] = useState<boolean>(false);
+
 
   //функция, которая отправляет числа из инпута в localstorage
   // мы ее кидаем как props в ValueSetter и используем на кнопке
   function addNumbersToLocalStorage(){
     localStorage.setItem('minInputValue',JSON.stringify(minInputValue))
     localStorage.setItem('maxInputValue',JSON.stringify(maxInputValue))
-    let maxValueAsString=localStorage.getItem('maxInputValue')
-    if (maxValueAsString) {
-      let maxValue = JSON.parse(maxValueAsString)
-      setCounter(maxValue)
-      setMaxInputValue(maxValue)
-    }
-    let minValueAsString = localStorage.getItem('minInputValue')
-    if (minValueAsString) {
-      let minValue = JSON.parse(minValueAsString)
-      setMaxInputValue(minValue)
+      setCounter(minInputValue)
+    setDisabled(true)
     }
 
-  }
 
   // создадим переменные для минимального и максимального значения
   // и конвертнем из строки в число
@@ -48,10 +46,11 @@ function App() {
     let minValue = Number(minInputValue)
     switch (name) {
       case "+": {
-        debugger
          return counter === maxValue
              ? counter=maxValue
              : setCounter(++counter)
+           // localStorage.setItem('counter',JSON.stringify(counter))
+
       }
       // обрабатываем  не выводим значения до нуля
       case "-": {
@@ -72,7 +71,10 @@ function App() {
                      minInputValue={minInputValue}
                      maxInputValue={maxInputValue}
                      setMaxInputValue={setMaxInputValue}
-                     addNumbersToLocalStorage={addNumbersToLocalStorage}/>
+                     addNumbersToLocalStorage={addNumbersToLocalStorage}
+                     disabled={disabled}
+
+        />
       </Card>
       <Card>
         <Counter counter={counter}

@@ -8,16 +8,17 @@ type ButtonProps = {
     callBack: () => void
     children : string
     disabledFunction?: () => boolean
+    disabled?:boolean
 }
 
 export type BtnNameTypes = '+' | '-' | 'Reset'
 
  export  const Button = (props:ButtonProps) => {
     const className= `${styles.button} ${styles[`button_${props.color}`]}`
-     const disabled = props.disabledFunction ? props.disabledFunction() : false;
-
+     //const disabled = props.disabledFunction ? props.disabledFunction() : false;
+     console.log(props.disabled)
     return (
-        <button  className={className} onClick={props.callBack} disabled={disabled} >{props.children}</button>
+        <button  className={className} onClick={props.callBack} disabled={props.disabled} >{props.children}</button>
     );
 };
 
