@@ -1,0 +1,11 @@
+.defaultCounter {
+    font-size: 25px;
+    font-weight: normal;
+    padding-bottom: 0.3rem;
+}
+.criticalCounter {
+    font-size: 30px;
+    font-weight: bold;
+    color:crimson;
+    padding-bottom: 0.3rem;
+}

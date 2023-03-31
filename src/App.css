@@ -1,0 +1,20 @@
+.App {
+  font-family: 'VT323', monospace;
+  text-align: center;
+  width:65%;
+  margin: 0 auto;
+  padding-top: 4rem;
+
+  display: flex;
+  justify-content: space-around;
+}
+.wrap{
+  font-size: 26px;
+  margin: 1rem;
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -1,0 +1,41 @@
+:root {
+    --redBtn:crimson;
+    --blueBtn:royalblue;
+    --greenBtn:forestgreen;
+    /**/
+}
+
+.button {
+    border-radius:5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    color:white;
+    font-size: 16px;
+    font-family: 'VT323', monospace;
+    &:hover {
+        transition: all ease-in-out 0.3s;
+        color: whitesmoke;
+    }
+    &_disabled {
+        background-color:gray;
+        color: aliceblue;
+        cursor:not-allowed;
+    }
+    &_red{
+        border: 1px solid var(--redBtn);
+        &:hover {
+            background-color: var(--redBtn);
+        }}
+    &_blue{
+        border: 1px solid var(--blueBtn);
+        &:hover {
+            background-color: var(--blueBtn);
+        }
+    }
+    &_green{
+        border: 1px solid var(--greenBtn);
+        &:hover {
+            background-color: var(--greenBtn);;
+        }
+}}
