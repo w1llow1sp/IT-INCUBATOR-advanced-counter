@@ -1,46 +1,61 @@
-import React from 'react';
-import {BtnNameTypes, Button} from "../../components-ui/Button/Button";
+import React, {useState} from 'react';
+import {Button} from "../../components-ui/Button/Button";
 import styles from './Counter.module.css'
 
 type AppPropsType ={
     counter:number
-    universalBtnHandler : (name:BtnNameTypes) => void
     minInputValue:number
     maxInputValue:number
+
+    PlusButtonHandler:()=>void
+    MinusButtonHandler:()=>void
+    ResetButtonHandler:()=>void
 }
 
 export const Counter = (props:AppPropsType) => {
     let maxValue= Number(props.maxInputValue)
     let minValue = Number(props.minInputValue)
 
-    function disablePlusButton () {
-        // counter -- это MinValue
-      return  minValue >= maxValue
-    }
-    function disableMinusButton () {
-        // counter -- это MinValue
-        return  props.counter < minValue
-    }
-    function disableResetrButton () {
-        // counter -- это MinValue
-        return  props.counter === 0
-    }
+    let isEqualValues =
+        minValue === maxValue
+        || minValue === 0
+        || maxValue === 0
+        || minValue >= maxValue
+            ? 'Invalid Values!'
+            : props.counter
+
+    /*--Для лучшей читаемости и рефакторинга кода вынесла все стили наверх--*/
+    const plusBtnColor = props.counter >= maxValue ? 'disabled' :'green' ;
+    const minusBtnColor = props.counter <= minValue ? 'disabled' : 'red';
+    const resetBtnColor = props.counter === 0 ? 'disabled' : 'blue';
+    const counterColor= props.counter === maxValue || props.counter === minValue ||isEqualValues ? styles.criticalCounter :styles.defaultCounter
+    /*----*/
+    /*--Для лучшей читаемости и рефакторинга кода вынесла все функции для кнопок наверх--*/
+    const plusBtnHandler = () => {props.PlusButtonHandler()}
+    const minusBtnHandler = () => {props.MinusButtonHandler()}
+    const resetBtnHandler = () => {props.ResetButtonHandler()}
+    /*----*/
+
+
     return (
         <div className={styles.counterWrapper}>
             <h1>Counter</h1>
-            <div className={`${props.counter === maxValue? styles.criticalCounter :styles.defaultCounter}`}>{props.counter}</div>
+            <div className={counterColor}>
+                {isEqualValues}
+            </div>
             <div className={'btnWrapper'}>
                 <Button
-                   // disabledFunction={disablePlusButton}
-                    color={minValue === maxValue  ?'green' :'disabled' } callBack={()=>props.universalBtnHandler('+')}>+</Button>
+                    color={plusBtnColor}
+                    callBack={plusBtnHandler}>+</Button>
                 <Button
-                    //disabledFunction={disableMinusButton}
-                        color={props.counter < minValue? 'disabled' :'red'} callBack={()=>props.universalBtnHandler('-')}>-</Button>
+                        color={minusBtnColor}
+                        callBack={minusBtnHandler}>-</Button>
                 <Button
-                   // disabledFunction={disableResetrButton}
-                    color={props.counter === 0 ? 'disabled' :'blue'} callBack={()=>props.universalBtnHandler('Reset')}>Reset</Button>
+                    color={resetBtnColor}
+                    callBack={resetBtnHandler}>Reset</Button>
             </div>
         </div>
     );
 };
 
+//TODO: Что-то сделать со стилями

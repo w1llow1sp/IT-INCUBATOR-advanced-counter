@@ -41,28 +41,27 @@ function App() {
 
     /* Универсальная функция для компоненты Button ,
      в зависимости от имени кнопки  */
-  const universalBtnHandler = (name:BtnNameTypes) => {
-    let maxValue= Number(maxInputValue)
-    let minValue = Number(minInputValue)
-    switch (name) {
-      case "+": {
-         return counter === maxValue
-             ? counter=maxValue
-             : setCounter(++counter)
-           // localStorage.setItem('counter',JSON.stringify(counter))
+  let maxValue= Number(maxInputValue)
+  let minValue = Number(minInputValue)
 
-      }
-      // обрабатываем  не выводим значения до нуля
-      case "-": {
-        return counter < minValue
-            ? counter=minValue
-            : setCounter(--counter)
-      }
-      //обнуляем
-      default : {
-        return setCounter(minValue)
-      }
-    }}
+  function PlusButtonHandler () {
+    if (counter >= maxValue) {
+    return  counter=maxValue
+    }
+    setCounter(++counter)
+  }
+
+  function MinusButtonHandler () {
+    if ( counter <= minValue) {
+     return  counter=minValue
+    }
+    setCounter(--counter)
+  }
+
+  function ResetButtonHandler () {
+    return setCounter(minValue)
+  }
+
 
   return (
     <div className="App">
@@ -78,9 +77,12 @@ function App() {
       </Card>
       <Card>
         <Counter counter={counter}
-                 universalBtnHandler={universalBtnHandler}
                  minInputValue={minInputValue}
                  maxInputValue={maxInputValue}
+
+                 PlusButtonHandler={PlusButtonHandler}
+                 MinusButtonHandler={MinusButtonHandler}
+                 ResetButtonHandler={ResetButtonHandler}
         />
       </Card>
 
