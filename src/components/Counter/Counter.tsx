@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Dispatch, SetStateAction, useState} from 'react';
 import {Button} from "../../components-ui/Button/Button";
 import styles from './Counter.module.css'
 
@@ -12,6 +12,8 @@ type AppPropsType ={
     ResetButtonHandler:()=>void
 
     disabled:boolean
+    show:boolean
+    setShow:any
 }
 
 export const Counter = (props:AppPropsType) => {
@@ -37,7 +39,7 @@ export const Counter = (props:AppPropsType) => {
     /*--Для лучшей читаемости и рефакторинга кода вынесла все функции для кнопок наверх--*/
     const plusBtnHandler = () => {props.PlusButtonHandler()}
     const minusBtnHandler = () => {props.MinusButtonHandler()}
-    const resetBtnHandler = () => {props.ResetButtonHandler()}
+    const resetBtnHandler = () => {props.ResetButtonHandler() }
     /*----*/
 
 
@@ -45,9 +47,10 @@ export const Counter = (props:AppPropsType) => {
         <div className={styles.counterWrapper}>
             <h1>Counter</h1>
             <div className={styleField }>
-                {!props.disabled
+{/*                {!props.disabled
                     ? "Please,set initial values"
-                    : isEqualValues}
+                    : isEqualValues}*/}
+                {isEqualValues}
             </div>
             <div className={'btnWrapper'}>
                 <Button
@@ -57,8 +60,13 @@ export const Counter = (props:AppPropsType) => {
                         color={minusBtnColor}
                         callBack={minusBtnHandler}>-</Button>
                 <Button
-                    color={resetBtnColor}
-                    callBack={resetBtnHandler}>Reset</Button>
+                    color={'blue'}
+                    callBack={resetBtnHandler}>
+                    Reset</Button>
+                <Button
+                    color={'blue'}
+                    callBack={props.setShow}>
+                    Set</Button>
             </div>
         </div>
     );

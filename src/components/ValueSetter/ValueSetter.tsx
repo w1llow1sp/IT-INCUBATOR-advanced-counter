@@ -14,6 +14,8 @@ type AppPropsType = {
 
     addNumbersToLocalStorage:()=>void
     disabled: boolean
+    show:boolean
+    setShow:any
 
 }
 
@@ -26,6 +28,9 @@ export const ValueSetter = (props:AppPropsType) => {
             props.setMinInputValue(+value)
             :  props.setMaxInputValue(+value)
     }
+    const buttonFunc = ()=> {
+        props.setShow();
+        props.addNumbersToLocalStorage()}
 
 
 
@@ -44,9 +49,6 @@ export const ValueSetter = (props:AppPropsType) => {
     let isMaxLessThanMin = props.minInputValue > props.maxInputValue
         ? errorsList[2]
         : ''
-
-    const isErrorsTrue = isEqual && isGreaterThanZero && isMaxLessThanMin
-
 
 
     //Рендер
@@ -92,7 +94,7 @@ export const ValueSetter = (props:AppPropsType) => {
                 <Button color={'green'}
                     //color={props.disabled ? 'disabled':'green'}
                         //disabled={props.disabled}
-                        callBack={props.addNumbersToLocalStorage}
+                        callBack={buttonFunc}
                 >Set Values
 
                 </Button>

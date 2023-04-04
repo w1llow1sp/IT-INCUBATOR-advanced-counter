@@ -20,10 +20,16 @@ function App() {
   const [minInputValue, setMinInputValue] = useState<number>
   (initMinValue ? initMinValue : 0);
 
+  const maxValueAsString = localStorage.getItem('maxInputValue')
+  const initMaxValue = maxValueAsString && JSON.parse(maxValueAsString)
+  const [maxInputValue, setMaxInputValue] = useState<number>
+  (initMaxValue? initMaxValue : 5);
+
+
   // Локальные стейты
-  const [maxInputValue, setMaxInputValue] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
   let [counter, setCounter] = useState<number>(0);
+  const [show, setShow] = useState<boolean>(false)
 
   // Создание переменных
   let maxValue= Number(maxInputValue)
@@ -36,6 +42,11 @@ function App() {
       setCounter(minInputValue)
     setDisabled(true)
     }
+
+    function showHandler () {
+      setShow(!show)
+    }
+
 
   function PlusButtonHandler () {
     if (counter >= maxValue) {
@@ -60,28 +71,58 @@ function App() {
     <div className="App">
       <div className={'appWrap'}>
       <Card>
-        <ValueSetter setMinInputValue={setMinInputValue}
-                     minInputValue={minInputValue}
-                     maxInputValue={maxInputValue}
-                     setMaxInputValue={setMaxInputValue}
-                     addNumbersToLocalStorage={addNumbersToLocalStorage}
-                     disabled={disabled}
+        {show === false
+            ?
+            <Counter
+                counter={counter}
+          minInputValue={minInputValue}
+          maxInputValue={maxInputValue}
 
-        />
-      </Card>
-      <Card>
-        <Counter counter={counter}
-                 minInputValue={minInputValue}
-                 maxInputValue={maxInputValue}
+          PlusButtonHandler={PlusButtonHandler}
+          MinusButtonHandler={MinusButtonHandler}
+          ResetButtonHandler={ResetButtonHandler}
+          disabled={disabled}
+                show={show}
+                setShow={showHandler}
+          />
+        :
+            <ValueSetter setMinInputValue={setMinInputValue}
+                         minInputValue={minInputValue}
+                         maxInputValue={maxInputValue}
+                         setMaxInputValue={setMaxInputValue}
+                         addNumbersToLocalStorage={addNumbersToLocalStorage}
+                         disabled={disabled}
+                         show={show}
+                         setShow={showHandler}
 
-                 PlusButtonHandler={PlusButtonHandler}
-                 MinusButtonHandler={MinusButtonHandler}
-                 ResetButtonHandler={ResetButtonHandler}
-                 disabled={disabled}
-        />
-      </Card>
+            />
+        }</Card>
+
+ {/*       <Card>
+          <ValueSetter setMinInputValue={setMinInputValue}
+                       minInputValue={minInputValue}
+                       maxInputValue={maxInputValue}
+                       setMaxInputValue={setMaxInputValue}
+                       addNumbersToLocalStorage={addNumbersToLocalStorage}
+                       disabled={disabled}
+
+          />
+        </Card>
+        <Card>
+          <Counter counter={counter}
+                   minInputValue={minInputValue}
+                   maxInputValue={maxInputValue}
+
+                   PlusButtonHandler={PlusButtonHandler}
+                   MinusButtonHandler={MinusButtonHandler}
+                   ResetButtonHandler={ResetButtonHandler}
+                   disabled={disabled}
+          />
+        </Card>*/}
       </div>
     </div>
+
+
   );
 }
 
