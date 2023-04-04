@@ -12,7 +12,6 @@ import {ValueSetter} from "./components/ValueSetter/ValueSetter";
 //TODO: Спросить про поведение кнопки в ValueSetter.tsx
 
 
-
 function App() {
 
   // Значения из LocalStorage
@@ -78,7 +77,6 @@ function App() {
                  PlusButtonHandler={PlusButtonHandler}
                  MinusButtonHandler={MinusButtonHandler}
                  ResetButtonHandler={ResetButtonHandler}
-
                  disabled={disabled}
         />
       </Card>
