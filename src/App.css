@@ -1,5 +1,11 @@
 .App {
+  padding-top: 3rem;
   font-family: 'VT323', monospace;
+  text-align: center;
+
+}
+
+.appWrap {
   text-align: center;
   width:65%;
   margin: 0 auto;

@@ -8,6 +8,8 @@ import {ValueSetter} from "./components/ValueSetter/ValueSetter";
 
 function App() {
 
+  //
+
   const minValueAsString = localStorage.getItem('minInputValue')
   const initMinValue = minValueAsString && JSON.parse(minValueAsString)
   console.log('initMinValue', initMinValue)
@@ -65,6 +67,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className={'appWrap'}>
       <Card>
         <ValueSetter setMinInputValue={setMinInputValue}
                      minInputValue={minInputValue}
@@ -85,7 +88,7 @@ function App() {
                  ResetButtonHandler={ResetButtonHandler}
         />
       </Card>
-
+      </div>
     </div>
   );
 }

@@ -17,3 +17,8 @@ padding-right: 1rem;
      border: 1px dotted greenyellow;
      color: white;
  }
+
+.error {
+    color: crimson;
+    font-size: 15px;
+}

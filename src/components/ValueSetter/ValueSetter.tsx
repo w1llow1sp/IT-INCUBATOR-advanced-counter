@@ -1,3 +1,5 @@
+//TODO:Как-то задезейблить кнопочку при ошибках
+
 import React, {ChangeEvent, useState} from 'react';
 import styles from './ValueSetter.module.css'
 import {Input} from "../../components-ui/Input/Input";
@@ -23,15 +25,23 @@ export const ValueSetter = (props:AppPropsType) => {
             :  props.setMaxInputValue(+value)
     }
 
+
     /*Я решила не делать стейт для ошибок, поэтому вынесла их
     * в условный рендеринг. Можете тряпкой ссаной кинуть */
+    let errorsList = [
+        'Values cant be equal!',
+        'Values must be greater zero!',
+        'Min value cant be greater than Max']
+
     let isEqual = props.minInputValue === props.maxInputValue
-        ? 'Values cant be equal!'
+        ? errorsList[0]
         : ''
     let isGreaterThanZero = props.minInputValue <= 0 ||  props.maxInputValue<=0
-        ? 'Values must be greater zero!'
+        ? errorsList[1]
         : ''
-
+    let isMaxLessThanMin = props.minInputValue > props.maxInputValue
+        ? errorsList[2]
+        : ''
 
     return (
         <div>
@@ -48,8 +58,12 @@ export const ValueSetter = (props:AppPropsType) => {
                            />
 
                 </div>
-            {isGreaterThanZero}
-            {isEqual}
+            <div className={styles.error}>
+                {isGreaterThanZero}
+                {isEqual}
+                {isMaxLessThanMin}
+            </div>
+
                 <div className={styles.input__wrapper}>
                     <p className={styles.input__text}>Min value:</p>
                     <Input type={"number"}
@@ -61,8 +75,12 @@ export const ValueSetter = (props:AppPropsType) => {
                            inputValue={props.minInputValue}/>
 
                 </div>
-            {isGreaterThanZero}
-            {isEqual}
+            <div className={styles.error}>
+                {isGreaterThanZero}
+                {isEqual}
+                {isMaxLessThanMin}
+            </div>
+
             <div>
                 <Button color={props.disabled ? 'disabled':'green'}
                         disabled={props.disabled}
@@ -76,7 +94,6 @@ export const ValueSetter = (props:AppPropsType) => {
     );
 };
 
-//TODO: Сделать обрабочик ошибки от нуля
 
 /*
 import React, {ChangeEvent, useState} from 'react';
