@@ -89,8 +89,9 @@ export const ValueSetter = (props:AppPropsType) => {
             </div>
 
             <div>
-                <Button color={props.disabled ? 'disabled':'green'}
-                        disabled={props.disabled}
+                <Button color={'green'}
+                    //color={props.disabled ? 'disabled':'green'}
+                        //disabled={props.disabled}
                         callBack={props.addNumbersToLocalStorage}
                 >Set Values
 

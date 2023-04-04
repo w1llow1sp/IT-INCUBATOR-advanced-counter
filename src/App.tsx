@@ -5,10 +5,12 @@ import {Counter} from './components/Counter/Counter';
 import {Card} from "./components-ui/Card/Card";
 import {ValueSetter} from "./components/ValueSetter/ValueSetter";
 
-//TODO: Разобраться со стилями в Counter.tsx counterColor
+//TODO: Counter.tsx
+//TODO: Разобраться со стилями в Counter.tsx (counterColor)
+//TODO: Вывести надпись до ввода значений 'Please set values' до отправки в Counter.tsx
+//TODO: ValueSetter.tsx
 //TODO: Спросить про поведение кнопки в ValueSetter.tsx
-//TODO: Код-ревью
-//TODO: Спросить, как реализовать
+
 
 
 function App() {
@@ -76,6 +78,8 @@ function App() {
                  PlusButtonHandler={PlusButtonHandler}
                  MinusButtonHandler={MinusButtonHandler}
                  ResetButtonHandler={ResetButtonHandler}
+
+                 disabled={disabled}
         />
       </Card>
       </div>

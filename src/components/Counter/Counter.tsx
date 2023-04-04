@@ -10,17 +10,20 @@ type AppPropsType ={
     PlusButtonHandler:()=>void
     MinusButtonHandler:()=>void
     ResetButtonHandler:()=>void
+
+    disabled:boolean
 }
-//TODO: Разобраться со стилями в counterColor
+
 export const Counter = (props:AppPropsType) => {
     let maxValue= Number(props.maxInputValue)
     let minValue = Number(props.minInputValue)
 
     let isEqualValues =
         minValue === maxValue
-        || minValue === 0
+        || minValue < 0
         || maxValue === 0
         || minValue >= maxValue
+
             ? 'Invalid Values!'
             : props.counter
 
@@ -28,7 +31,8 @@ export const Counter = (props:AppPropsType) => {
     const plusBtnColor = props.counter >= maxValue ? 'disabled' :'green' ;
     const minusBtnColor = props.counter <= minValue ? 'disabled' : 'red';
     const resetBtnColor = props.counter === 0 ? 'disabled' : 'blue';
-    let counterColor= props.counter === maxValue && props.counter === minValue || isEqualValues ? styles.criticalCounter : styles.defaultCounter
+    let counterColor= props.counter === maxValue || props.counter === minValue ? styles.criticalCounter : styles.defaultCounter
+    let styleField= props.disabled ? counterColor : styles.defaultCounter
     /*----*/
     /*--Для лучшей читаемости и рефакторинга кода вынесла все функции для кнопок наверх--*/
     const plusBtnHandler = () => {props.PlusButtonHandler()}
@@ -40,8 +44,10 @@ export const Counter = (props:AppPropsType) => {
     return (
         <div className={styles.counterWrapper}>
             <h1>Counter</h1>
-            <div className={counterColor }>
-                {isEqualValues}
+            <div className={styleField }>
+                {!props.disabled
+                    ? "Please,set initial values"
+                    : isEqualValues}
             </div>
             <div className={'btnWrapper'}>
                 <Button
