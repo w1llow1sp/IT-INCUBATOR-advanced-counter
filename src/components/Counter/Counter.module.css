@@ -1,5 +1,6 @@
 .defaultCounter {
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: bold;
     font-weight: normal;
     padding-bottom: 0.3rem;
 }

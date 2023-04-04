@@ -1,50 +1,40 @@
 import React, {useState} from "react";
 import './App.css';
 
-import {BtnNameTypes} from "./components-ui/Button/Button";
 import {Counter} from './components/Counter/Counter';
 import {Card} from "./components-ui/Card/Card";
 import {ValueSetter} from "./components/ValueSetter/ValueSetter";
 
+//TODO: Разобраться со стилями в Counter.tsx counterColor
+//TODO: Спросить про поведение кнопки в ValueSetter.tsx
+//TODO: Код-ревью
+//TODO: Спросить, как реализовать
+
+
 function App() {
 
-  //
-
+  // Значения из LocalStorage
   const minValueAsString = localStorage.getItem('minInputValue')
   const initMinValue = minValueAsString && JSON.parse(minValueAsString)
-  console.log('initMinValue', initMinValue)
+  const [minInputValue, setMinInputValue] = useState<number>
+  (initMinValue ? initMinValue : 0);
 
+  // Локальные стейты
+  const [maxInputValue, setMaxInputValue] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean>(false);
   let [counter, setCounter] = useState<number>(0);
 
-  //создадим локальный стейт для минимального числа из инпута
-  //сетаем его в ValueSetter в localstorage
-    const [minInputValue, setMinInputValue] = useState<number>(initMinValue ? initMinValue : 0);
-    console.log(minInputValue)
+  // Создание переменных
+  let maxValue= Number(maxInputValue)
+  let minValue = Number(minInputValue)
 
-  //создадим локальный стейт для максимального числа из инпута
-  //сетаем его в ValueSetter в localstorage
-    const [maxInputValue, setMaxInputValue] = useState<number>(0);
-    console.log(maxInputValue)
-    const [disabled, setDisabled] = useState<boolean>(false);
-
-
-  //функция, которая отправляет числа из инпута в localstorage
-  // мы ее кидаем как props в ValueSetter и используем на кнопке
+  // Функции
   function addNumbersToLocalStorage(){
     localStorage.setItem('minInputValue',JSON.stringify(minInputValue))
     localStorage.setItem('maxInputValue',JSON.stringify(maxInputValue))
       setCounter(minInputValue)
     setDisabled(true)
     }
-
-
-  // создадим переменные для минимального и максимального значения
-  // и конвертнем из строки в число
-
-    /* Универсальная функция для компоненты Button ,
-     в зависимости от имени кнопки  */
-  let maxValue= Number(maxInputValue)
-  let minValue = Number(minInputValue)
 
   function PlusButtonHandler () {
     if (counter >= maxValue) {
@@ -64,7 +54,7 @@ function App() {
     return setCounter(minValue)
   }
 
-
+  //Рендер
   return (
     <div className="App">
       <div className={'appWrap'}>

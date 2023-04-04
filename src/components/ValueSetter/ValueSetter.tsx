@@ -1,6 +1,6 @@
 //TODO:Как-то задезейблить кнопочку при ошибках
 
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './ValueSetter.module.css'
 import {Input} from "../../components-ui/Input/Input";
 import {Button} from "../../components-ui/Button/Button";
@@ -19,6 +19,8 @@ type AppPropsType = {
 
 export const ValueSetter = (props:AppPropsType) => {
 
+    // Функции
+
     const testFunc = (value: string, name: 'start' | 'max') => {
         name === 'start' ?
             props.setMinInputValue(+value)
@@ -26,8 +28,8 @@ export const ValueSetter = (props:AppPropsType) => {
     }
 
 
-    /*Я решила не делать стейт для ошибок, поэтому вынесла их
-    * в условный рендеринг. Можете тряпкой ссаной кинуть */
+
+    // Создание переменных
     let errorsList = [
         'Values cant be equal!',
         'Values must be greater zero!',
@@ -43,6 +45,11 @@ export const ValueSetter = (props:AppPropsType) => {
         ? errorsList[2]
         : ''
 
+    const isErrorsTrue = isEqual && isGreaterThanZero && isMaxLessThanMin
+
+
+
+    //Рендер
     return (
         <div>
             <h2>Please, write max and min values</h2>
@@ -75,7 +82,7 @@ export const ValueSetter = (props:AppPropsType) => {
                            inputValue={props.minInputValue}/>
 
                 </div>
-            <div className={styles.error}>
+            <div className={styles.error }>
                 {isGreaterThanZero}
                 {isEqual}
                 {isMaxLessThanMin}

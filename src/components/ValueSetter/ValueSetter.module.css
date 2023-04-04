@@ -22,3 +22,8 @@ padding-right: 1rem;
     color: crimson;
     font-size: 15px;
 }
+
+.default {
+    color: white;
+    font-size: 15px;
+}
