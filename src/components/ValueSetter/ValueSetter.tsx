@@ -1,6 +1,6 @@
 //TODO:Как-то задезейблить кнопочку при ошибках
 
-import React, {useState} from 'react';
+import React, {FC} from 'react';
 import styles from './ValueSetter.module.css'
 import {Input} from "../../components-ui/Input/Input";
 import {Button} from "../../components-ui/Button/Button";
@@ -12,44 +12,50 @@ type AppPropsType = {
     maxInputValue:number
     setMaxInputValue:(maxInputValue:number)=>void
 
-    addNumbersToLocalStorage:()=>void
+    saveValuesToLocalStorage:()=>void
     disabled: boolean
     show:boolean
     setShow:any
-
 }
 
-export const ValueSetter = (props:AppPropsType) => {
+export const ValueSetter:FC<AppPropsType> = ({
+                                                 minInputValue,
+                                                 setMinInputValue,
+                                                 maxInputValue,
+                                                 setMaxInputValue,
+                                                 saveValuesToLocalStorage,
+                                                 disabled,
+                                                 show,
+                                                 setShow
+                                             }) => {
 
     // Функции
 
-    const testFunc = (value: string, name: 'start' | 'max') => {
-        name === 'start' ?
-            props.setMinInputValue(+value)
-            :  props.setMaxInputValue(+value)
+    const handleValueChange  = (value: string, name: 'start' | 'max') => {
+        name === 'start'
+            ? setMinInputValue(+value)
+            : setMaxInputValue(+value)
     }
     const buttonFunc = ()=> {
-        props.setShow();
-        props.addNumbersToLocalStorage()}
+        setShow();
+        saveValuesToLocalStorage()}
 
 
+    const getError = (minValue: number, maxValue: number): string => {
+        if (minValue === maxValue) {
+            return 'Values cant be equal!';
+        } else if (minValue <= 0 || maxValue <= 0) {
+            return 'Values must be greater zero!';
+        } else if (minValue > maxValue) {
+            return 'Min value cant be greater than Max';
+        } else {
+            return '';
+        }
+    };
 
     // Создание переменных
-    let errorsList = [
-        'Values cant be equal!',
-        'Values must be greater zero!',
-        'Min value cant be greater than Max']
 
-    let isEqual = props.minInputValue === props.maxInputValue
-        ? errorsList[0]
-        : ''
-    let isGreaterThanZero = props.minInputValue <= 0 ||  props.maxInputValue<=0
-        ? errorsList[1]
-        : ''
-    let isMaxLessThanMin = props.minInputValue > props.maxInputValue
-        ? errorsList[2]
-        : ''
-
+    const error=getError(minInputValue,maxInputValue)
 
     //Рендер
     return (
@@ -62,15 +68,13 @@ export const ValueSetter = (props:AppPropsType) => {
                            min={0}
                            name='max'
                            required={true}
-                           callback={testFunc}
-                           inputValue={props.maxInputValue}
+                           callback={handleValueChange }
+                           inputValue={maxInputValue}
                            />
 
                 </div>
             <div className={styles.error}>
-                {isGreaterThanZero}
-                {isEqual}
-                {isMaxLessThanMin}
+                {error}
             </div>
 
                 <div className={styles.input__wrapper}>
@@ -80,20 +84,16 @@ export const ValueSetter = (props:AppPropsType) => {
                            min={0}
                            styles={'primary'}
                            required={true}
-                           callback={testFunc}
-                           inputValue={props.minInputValue}/>
+                           callback={handleValueChange }
+                           inputValue={minInputValue}/>
 
                 </div>
             <div className={styles.error }>
-                {isGreaterThanZero}
-                {isEqual}
-                {isMaxLessThanMin}
+                {error}
             </div>
 
             <div>
                 <Button color={'green'}
-                    //color={props.disabled ? 'disabled':'green'}
-                        //disabled={props.disabled}
                         callBack={buttonFunc}
                 >Set Values
 

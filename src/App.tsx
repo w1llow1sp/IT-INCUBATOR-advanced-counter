@@ -36,7 +36,7 @@ function App() {
   let minValue = Number(minInputValue)
 
   // Функции
-  function addNumbersToLocalStorage(){
+  function saveValuesToLocalStorage(){
     localStorage.setItem('minInputValue',JSON.stringify(minInputValue))
     localStorage.setItem('maxInputValue',JSON.stringify(maxInputValue))
       setCounter(minInputValue)
@@ -90,35 +90,13 @@ function App() {
                          minInputValue={minInputValue}
                          maxInputValue={maxInputValue}
                          setMaxInputValue={setMaxInputValue}
-                         addNumbersToLocalStorage={addNumbersToLocalStorage}
+                         saveValuesToLocalStorage={saveValuesToLocalStorage}
                          disabled={disabled}
                          show={show}
                          setShow={showHandler}
 
             />
         }</Card>
-
- {/*       <Card>
-          <ValueSetter setMinInputValue={setMinInputValue}
-                       minInputValue={minInputValue}
-                       maxInputValue={maxInputValue}
-                       setMaxInputValue={setMaxInputValue}
-                       addNumbersToLocalStorage={addNumbersToLocalStorage}
-                       disabled={disabled}
-
-          />
-        </Card>
-        <Card>
-          <Counter counter={counter}
-                   minInputValue={minInputValue}
-                   maxInputValue={maxInputValue}
-
-                   PlusButtonHandler={PlusButtonHandler}
-                   MinusButtonHandler={MinusButtonHandler}
-                   ResetButtonHandler={ResetButtonHandler}
-                   disabled={disabled}
-          />
-        </Card>*/}
       </div>
     </div>
 
