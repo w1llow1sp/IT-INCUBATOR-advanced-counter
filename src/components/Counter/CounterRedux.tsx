@@ -23,7 +23,7 @@ const invalidValues =
         maxValue === 0 ||
         minValue >= maxValue;
 
-export const Counter: FC<AppPropsType> = ({
+export const CounterRedux: FC<AppPropsType> = ({
                                               counter,
                                               minInputValue,
                                               maxInputValue,
