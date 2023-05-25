@@ -1,7 +1,7 @@
 export const loadState = () => {
     try {
-        const maxValue = localStorage.getItem('maxValue');
-        const minValue = localStorage.getItem('minValue');
+        const maxValue = localStorage.getItem('maxInputValue');
+        const minValue = localStorage.getItem('minInputValue');
 
         if (maxValue === null || minValue === null) {
             return undefined;
@@ -18,8 +18,8 @@ export const loadState = () => {
 
 export const saveState = (maxValue: string, minValue: string) => {
     try {
-        localStorage.setItem('maxValue', JSON.stringify(maxValue));
-        localStorage.setItem('minValue', JSON.stringify(minValue));
+        localStorage.setItem('maxInputValue', JSON.stringify(maxValue));
+        localStorage.setItem('minInputValue', JSON.stringify(minValue));
     } catch {
         console.error('Failed to save state to local storage');
     }

@@ -11,8 +11,8 @@ export type InputPropsTypes = {
     inputValue:number
     setInputValue?:(inputValue:string)=>void
     min?:number
-    callback: (value: string, name: 'start' | 'max') => void
-    name: 'start' | 'max'
+    callback: (value: string, name: 'min' | 'max') => void
+    name: 'min' | 'max'
 }
 
 

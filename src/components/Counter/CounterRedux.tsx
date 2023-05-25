@@ -1,80 +1,64 @@
-import React, {Dispatch, FC, SetStateAction, useState} from 'react';
+import React, {FC} from 'react';
 import {Button} from "../../components-ui/Button/Button";
 import styles from './Counter.module.css'
+import {CounterContainerProps} from "./CounterContainer/CounterTypes";
 
-type AppPropsType = {
-    counter: number
-    minInputValue: number
-    maxInputValue: number
 
-    PlusButtonHandler: () => void
-    MinusButtonHandler: () => void
-    ResetButtonHandler: () => void
+export const CounterRedux: FC<CounterContainerProps> = ({
+                                                            counter,
+                                                            isDisabled,
+                                                            plusBtnColor,
+                                                            minusBtnColor,
+                                                            isInvalidValues,
+                                                            isCriticalCounterValues,
 
-    disabled: boolean
-    show: boolean
-    setShow: any
-}
+                                                            setBtnColor,
+                                                            setCounterColor,
+                                                            plus,
+                                                            minus,
+                                                            reset,
+                                                            show,
+                                                        }) => {
 
-const invalidValues =
-    (minValue: number, maxValue: number) =>
-        minValue === maxValue ||
-        minValue < 0 ||
-        maxValue === 0 ||
-        minValue >= maxValue;
+    /*--Для лучшей читаемости и рефакторинга кода вынесла все условные стили наверх--*/
+    const PlusBtnFunc = () => {
+        plus()
+        setBtnColor()
+        setCounterColor()
+    }
+    const MinusBtnFunc = () => {
+        minus()
+        setBtnColor()
+        setCounterColor()
+    }
 
-export const CounterRedux: FC<AppPropsType> = ({
-                                              counter,
-                                              minInputValue,
-                                              maxInputValue,
-                                              PlusButtonHandler,
-                                              MinusButtonHandler,
-                                              ResetButtonHandler,
-                                              disabled,
-                                              show,
-                                              setShow,
-                                          }) => {
-    let maxValue = Number(maxInputValue)
-    let minValue = Number(minInputValue)
-
-    let isEqualValues = invalidValues(minValue,maxValue)
-            ? 'Invalid Values!'
-            : counter
-
-    /*--Для лучшей читаемости и рефакторинга кода вынесла все стили наверх--*/
-    const plusBtnColor = counter >= maxValue ? 'disabled' : 'green';
-    const minusBtnColor = counter <= minValue ? 'disabled' : 'red';
-    let counterColor = counter === maxValue || counter === minValue ? styles.criticalCounter : styles.defaultCounter
-    let styleField = disabled ? counterColor : styles.defaultCounter
+    let counterColor = isCriticalCounterValues
+        ? styles.criticalCounter
+        : styles.defaultCounter
     /*----*/
-
-    /*----*/
-
 
     return (
         <div className={styles.counterWrapper}>
             <h1>Counter</h1>
-            <div className={styleField}>
-                {isEqualValues}
+            <div className={counterColor}>
+                {counter}
             </div>
             <div className={'btnWrapper'}>
                 <Button
                     color={plusBtnColor}
-                    callBack={()=>PlusButtonHandler()}>+</Button>
+                    callBack={PlusBtnFunc}>+</Button>
                 <Button
                     color={minusBtnColor}
-                    callBack={()=>MinusButtonHandler()}>-</Button>
+                    callBack={MinusBtnFunc}>-</Button>
                 <Button
                     color={'blue'}
-                    callBack={()=>ResetButtonHandler()}>
+                    callBack={reset}>
                     Reset</Button>
                 <Button
                     color={'blue'}
-                    callBack={()=>setShow()}>
+                    callBack={show}>
                     Set</Button>
             </div>
         </div>
     );
 };
-
-//TODO: Что-то сделать со стилями
