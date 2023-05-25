@@ -46,17 +46,17 @@ export const CounterRedux: FC<CounterContainerProps> = ({
             <div className={'btnWrapper'}>
                 <Button
                     color={plusBtnColor}
-                    callBack={PlusBtnFunc}>+</Button>
+                    onClick={PlusBtnFunc}>+</Button>
                 <Button
                     color={minusBtnColor}
-                    callBack={MinusBtnFunc}>-</Button>
+                    onClick={MinusBtnFunc}>-</Button>
                 <Button
                     color={'blue'}
-                    callBack={reset}>
+                    onClick={reset}>
                     Reset</Button>
                 <Button
                     color={'blue'}
-                    callBack={show}>
+                    onClick={show}>
                     Set</Button>
             </div>
         </div>

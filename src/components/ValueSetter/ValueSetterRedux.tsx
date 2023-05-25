@@ -69,7 +69,7 @@ export const ValueSetterRedux: FC<ValueSetterContainerPropsType> = ({
             <div>
                 <Button
                     color='green'
-                    callBack={buttonFunc}
+                    onClick={buttonFunc}
                     disabled={isDisabled}>
                     Set Values
                 </Button>
